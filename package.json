@@ -1,0 +1,37 @@
+{
+  "name": "tresproyectosenuno",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "lint": "eslint --fix . --ext .js,.jsx"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.18",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.0",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.6"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "4.2.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.22.3",
+    "sort-by": "^1.2.0"
+  }
+}
