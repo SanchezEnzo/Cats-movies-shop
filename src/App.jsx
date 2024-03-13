@@ -15,11 +15,11 @@ export default function App() {
       element: <AppCat />
     },
     {
-      path: '/Serachmovie',
+      path: '/searchmovie',
       element: <SearchMovies />
     },
     {
-      path: '/Shopping',
+      path: '/shoppingcart',
       element: <ShoppingCart />
     }
   ]
