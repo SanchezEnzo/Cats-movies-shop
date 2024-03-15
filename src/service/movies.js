@@ -1,17 +1,21 @@
-export async function fetchingMovies(search) {
-  const res = await fetch(`https://www.omdbapi.com/?apikey=a2993ab&s=${search}`)
-  const data = await res.json()
-  if (data.Search) {
-    const { Search: movies } = data
+const API_KEY = 'a2993ab'
 
-    const mappedMovies = movies.map(movie => ({
+export async function searchMovies(search) {
+  if (search == '') return
+  try {
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`
+    )
+    const data = await res.json()
+    const { Search: movies } = data
+    return movies?.map(movie => ({
       title: movie.Title,
       year: movie.Year,
       id: movie.imdbID,
       poster: movie.Poster,
       type: movie.Type
     }))
-
-    return mappedMovies
+  } catch {
+    throw new Error('Error searching movies')
   }
 }

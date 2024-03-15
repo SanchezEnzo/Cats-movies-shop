@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
 import { Neflix, ReturnIcon } from '../components/Icons'
 import { Link } from 'react-router-dom'
 import { Movies } from '../components/Movies'
@@ -7,7 +6,7 @@ import { useSearch } from '../hooks/useSearch'
 
 export default function SearchMovies() {
   const { error, setSearch, search, setError } = useSearch()
-  const { movies, getMovies, loader } = useMovies({ search })
+  const { movies, getMovies, loading } = useMovies({ search, setError })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -33,7 +32,7 @@ export default function SearchMovies() {
 
   return (
     <div className='h-screen w-full bg-slate-900'>
-      <section className='h-[25vh] mb-10 flex flex-col  items-center'>
+      <section className='h-[25vh] mb-5 flex flex-col  items-center'>
         <form
           onSubmit={handleSubmit}
           className='flex justify-center items-center mt-10'
@@ -52,7 +51,7 @@ export default function SearchMovies() {
           </button>
         </form>
         {error && <p className={`text-red-700 mt-1 }`}>{error}</p>}
-        {!error && loader && (
+        {!error && loading && (
           <p className='text-white font-bold mt-2'>Loading...</p>
         )}
       </section>

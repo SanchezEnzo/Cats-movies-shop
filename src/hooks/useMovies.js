@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { fetchingMovies } from '../service/movies'
+import { searchMovies } from '../service/movies'
 
-export function useMovies({ search }) {
+export function useMovies({ search, setError }) {
   const [movies, setMovies] = useState('')
-  const [loader, setLoader] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const isSearchChange = useRef(search)
 
@@ -11,17 +11,18 @@ export function useMovies({ search }) {
     if (isSearchChange.current == search) return
     if (search) {
       try {
-        setLoader(true)
-        const newMovies = await fetchingMovies(search)
+        setLoading(true)
+        const newMovies = await searchMovies(search)
+        const orderedMovies = newMovies.sort()
         setMovies(newMovies)
         isSearchChange.current = search
       } catch {
-        new Error('No se pudo realizar la búsqueda')
+        setError('No se puedo realizar la búsqueda')
       } finally {
-        setLoader(false)
+        setLoading(false)
       }
     }
   }
 
-  return { movies, getMovies, loader }
+  return { movies, getMovies, loading }
 }
