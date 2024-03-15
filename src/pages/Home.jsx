@@ -3,7 +3,7 @@ import appCatImage from '../media/appCat.png'
 
 export default function Home() {
   return (
-    <main className='h-screen w-full bg-zinc-900'>
+    <main className='h-full w-full bg-zinc-900'>
       <section className='text-[#ededed] h-screen w-full'>
         <article className='fixed top-0 left-0 w-[33%] h-screen border flex justify-center'>
           <Link to='/searchmovie' className='w-full flex justify-center'>

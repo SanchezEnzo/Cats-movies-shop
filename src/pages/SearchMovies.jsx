@@ -3,30 +3,11 @@ import { Neflix, ReturnIcon } from '../components/Icons'
 import { Link } from 'react-router-dom'
 import { Movies } from '../components/Movies'
 import { useMovies } from '../hooks/useMovies'
+import { useSearch } from '../hooks/useSearch'
 
 export default function SearchMovies() {
-  const [search, setSearch] = useState('')
-  const { movies } = useMovies()
-  const [error, setError] = useState('')
-
-  // useEffect(() => {
-  //   fetch('https://www.omdbapi.com/?apikey=a2993ab&s=batman')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       if (data.Search) {
-  //         const { Search: newMovies } = data
-  //         console.log(newMovies)
-  //         setMovies(newMovies)
-  //       } else {
-  //         console.log('No se encontraron películas.')
-  //       }
-  //     })
-  //     .catch(error =>
-  //       console.log('Hubo un error al momento de obtener datos:', error)
-  //     )
-  // }, [])
-
-  function useSearch() {}
+  const { error, setSearch, search, setError } = useSearch()
+  const { movies } = useMovies({ search })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -49,16 +30,8 @@ export default function SearchMovies() {
     setSearch(query)
   }
 
-  useEffect(() => {
-    if (search.match(/^\d+$/)) {
-      setError('No se puede utilizar números al inicio')
-      return
-    }
-    setError('')
-  }, [search])
-
   return (
-    <div className='h-full w-full bg-slate-900'>
+    <div className='h-screen w-full bg-slate-900'>
       <section className='h-[25vh] mb-10 flex flex-col  items-center'>
         <form
           onSubmit={handleSubmit}
@@ -79,7 +52,7 @@ export default function SearchMovies() {
         </form>
         {error && <p className={`text-red-700 mt-1 }`}>{error}</p>}
       </section>
-      <section className='flex justify-center items-center'>
+      <section className='flex justify-center items-center bg-slate-900'>
         <Movies movies={movies} />
       </section>
       <Link to='/' className='absolute top-4 left-4 flex flex-col items-center'>
