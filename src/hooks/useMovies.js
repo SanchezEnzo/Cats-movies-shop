@@ -1,29 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { fetchingMovies } from '../service/movies'
 
 export function useMovies({ search }) {
   const [movies, setMovies] = useState('')
+  const [loader, setLoader] = useState(false)
 
-  console.log(search)
+  const isSearchChange = useRef(search)
 
-  useEffect(() => {
+  async function getMovies() {
+    if (isSearchChange.current == search) return
     if (search) {
-      fetch(`https://www.omdbapi.com/?apikey=a2993ab&s=${search}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.Search) {
-            const { Search: movies } = data
-            const mappedMovies = movies.map(movie => ({
-              title: movie.Title,
-              year: movie.Year,
-              id: movie.imdbID,
-              poster: movie.Poster,
-              type: movie.Type
-            }))
-            setMovies(mappedMovies)
-          }
-        })
+      try {
+        setLoader(true)
+        const newMovies = await fetchingMovies(search)
+        setMovies(newMovies)
+        isSearchChange.current = search
+      } catch {
+        new Error('No se pudo realizar la búsqueda')
+      } finally {
+        setLoader(false)
+      }
     }
-  }, [search])
+  }
 
-  return { movies }
+  return { movies, getMovies, loader }
 }

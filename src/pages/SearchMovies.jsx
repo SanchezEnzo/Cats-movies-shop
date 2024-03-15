@@ -7,7 +7,7 @@ import { useSearch } from '../hooks/useSearch'
 
 export default function SearchMovies() {
   const { error, setSearch, search, setError } = useSearch()
-  const { movies } = useMovies({ search })
+  const { movies, getMovies, loader } = useMovies({ search })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -19,6 +19,7 @@ export default function SearchMovies() {
       setError('El buscador necesita como mínimo 3 caracteres')
       return
     }
+    getMovies()
   }
 
   function handleChange(event) {
@@ -51,6 +52,9 @@ export default function SearchMovies() {
           </button>
         </form>
         {error && <p className={`text-red-700 mt-1 }`}>{error}</p>}
+        {!error && loader && (
+          <p className='text-white font-bold mt-2'>Loading...</p>
+        )}
       </section>
       <section className='flex justify-center items-center bg-slate-900'>
         <Movies movies={movies} />
