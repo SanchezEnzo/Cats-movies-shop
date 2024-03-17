@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import appCatImage from '../media/appCat.png'
+import searchMovies from '../media/searchMovies.png'
 
 export default function Home() {
   return (
@@ -19,7 +20,7 @@ export default function Home() {
           <Link to='/searchmovie' className='w-full flex justify-center'>
             <h2 className='mt-4 text-2xl'>Search Movies</h2>
             <img
-              src=''
+              src={searchMovies}
               alt='Screenshot de la aplicacion de SerachMovies'
               className='absolute h-screen w-full'
             />

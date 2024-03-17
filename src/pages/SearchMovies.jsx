@@ -58,7 +58,7 @@ export default function SearchMovies() {
             <input
               type='text'
               placeholder='Batman, El padrino, Iron-Man...'
-              className='rounded-md'
+              className='rounded-md pl-2'
               name='query'
               onChange={handleChange}
             />
