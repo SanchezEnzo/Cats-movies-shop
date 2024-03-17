@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { Movies } from '../components/Movies'
 import { useMovies } from '../hooks/useMovies'
 import { useSearch } from '../hooks/useSearch'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import debounce from 'just-debounce-it'
 
 export default function SearchMovies() {
   const [sort, setSort] = useState(false)
@@ -13,6 +14,11 @@ export default function SearchMovies() {
     setError,
     sort
   })
+
+  const debounceGetMovies = useMemo(
+    () => debounce(search => getMovies({ search }), 400),
+    []
+  )
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -24,16 +30,17 @@ export default function SearchMovies() {
       setError('El buscador necesita como mínimo 3 caracteres')
       return
     }
-    getMovies()
+    getMovies({ search })
   }
 
   function handleChange(event) {
-    const query = event.target.value
-    if (query.startsWith(' ')) {
+    const newSearch = event.target.value
+    if (newSearch.startsWith(' ')) {
       setError('El buscador no puede empezar con un espacio')
       return
     }
-    setSearch(query)
+    setSearch(newSearch)
+    debounceGetMovies(newSearch)
   }
 
   function handleSort() {
