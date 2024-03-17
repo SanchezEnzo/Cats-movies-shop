@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom'
 import { Movies } from '../components/Movies'
 import { useMovies } from '../hooks/useMovies'
 import { useSearch } from '../hooks/useSearch'
+import { useState } from 'react'
 
 export default function SearchMovies() {
+  const [sort, setSort] = useState(false)
   const { error, setSearch, search, setError } = useSearch()
-  const { movies, getMovies, loading } = useMovies({ search, setError })
+  const { movies, getMovies, loading } = useMovies({
+    search,
+    setError,
+    sort
+  })
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -30,6 +36,10 @@ export default function SearchMovies() {
     setSearch(query)
   }
 
+  function handleSort() {
+    setSort(!sort)
+  }
+
   return (
     <div className='h-screen w-full bg-slate-900'>
       <section className='h-[25vh] mb-5 flex flex-col  items-center'>
@@ -49,6 +59,12 @@ export default function SearchMovies() {
           <button className='text-white ml-4 border px-2 rounded-md'>
             Search
           </button>
+          <input
+            onChange={handleSort}
+            type='checkbox'
+            className='ml-3'
+            checked={sort}
+          />
         </form>
         {error && <p className={`text-red-700 mt-1 }`}>{error}</p>}
         {!error && loading && (
