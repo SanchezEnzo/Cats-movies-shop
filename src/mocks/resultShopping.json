@@ -1,0 +1,84 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Portátil Apple MacBook Pro",
+      "description": "Portátil de alto rendimiento con pantalla Retina de 13 pulgadas, chip Apple M1, 8 GB de RAM y 256 GB de SSD.",
+      "price": 1300,
+      "stockQuantity": 77,
+      "categoryName": "Electrónica",
+      "imageUrl": "https://i.ibb.co/cDj3dpX/Apple-Mac-Book-Pro.png",
+      "createdAt": "2024-03-10",
+      "updatedAt": "2024-03-16"
+    },
+    {
+      "id": 2,
+      "name": "Smartphone Samsung Galaxy S21",
+      "description": "Smartphone con pantalla AMOLED de 6.2 pulgadas, cámara triple, 8 GB de RAM y 128 GB de almacenamiento.",
+      "price": 899.99,
+      "stockQuantity": 50,
+      "categoryName": "Electrónica",
+      "imageUrl": "https://i.ibb.co/mXkVjdS/Smartphone-Samsung-Galaxy-S21.png",
+      "createdAt": "2024-03-10",
+      "updatedAt": "2024-03-10"
+    },
+    {
+      "id": 3,
+      "name": "Cámara Sony Alpha A7 III",
+      "description": "Cámara mirrorless con sensor full-frame de 24.2 MP, grabación de vídeo 4K HDR y sistema de enfoque automático rápido.",
+      "price": 1999.99,
+      "stockQuantity": 30,
+      "categoryName": "Electrónica",
+      "imageUrl": "https://i.ibb.co/ZHT2r1s/C-mara-Sony-Alpha-A7-III.png",
+      "createdAt": "2024-03-10",
+      "updatedAt": "2024-03-10"
+    },
+    {
+      "id": 4,
+      "name": "Consola PlayStation 5",
+      "description": "Consola de juegos de última generación con gráficos en 4K, SSD ultrarrápido y retrocompatibilidad con juegos de PS4.",
+      "price": 499.99,
+      "stockQuantity": 100,
+      "categoryName": "Electrónica",
+      "imageUrl": "https://i.ibb.co/BcqzzgF/Consola-Play-Station-5.png",
+      "createdAt": "2024-03-10",
+      "updatedAt": "2024-03-10"
+    },
+    {
+      "id": 5,
+      "name": "Auriculares Inalámbricos Bose QuietComfort 35",
+      "description": "Auriculares con cancelación de ruido, conexión Bluetooth, y hasta 20 horas de duración de batería.",
+      "price": 299.99,
+      "stockQuantity": 40,
+      "categoryName": "Electrónica",
+      "imageUrl": "https://i.ibb.co/YTb1Ybv/Auriculares-Inal-mbricos-Bose-Quiet-Comfort-35.png",
+      "createdAt": "2024-03-10",
+      "updatedAt": "2024-03-10"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 5,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalPages": 11,
+  "totalElements": 52,
+  "last": false,
+  "size": 5,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "numberOfElements": 5,
+  "first": true,
+  "empty": false
+}
