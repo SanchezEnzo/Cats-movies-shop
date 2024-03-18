@@ -25,7 +25,7 @@ export default function ShoppingCart() {
             />
           </label>
           <div className='ml-10 flex flex-col items-center'>
-            <div>
+            <div className='flex items-center'>
               <label htmlFor={priceRef} className='mr-1'>
                 Precio
               </label>
