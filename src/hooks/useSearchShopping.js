@@ -1,8 +1,7 @@
-export function useSearchShopping() {
-  const [search, setSearch] = useState('')
+import { useState } from 'react'
 
-  if (search) {
-  }
+export function useSearchShopping({ setError }) {
+  const [search, setSearch] = useState('')
 
   return { search, setSearch }
 }

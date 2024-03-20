@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { ReturnIcon } from '../components/Icons'
 import { Link } from 'react-router-dom'
-import resultShopping from '../mocks/resultShopping.json'
-import { AddToCart } from '../components/Icons'
 import { useSearchShopping } from '../hooks/useSearchShopping'
 import { useProducts } from '../hooks/useProducts'
+import { Products } from '../components/Products'
 
 export default function ShoppingCart() {
   const [filters, setFilters] = useState({ price: 0, category: 'all' })
   const [error, setError] = useState('')
   const priceRef = useRef()
   const categoryRef = useRef()
-  const { search, setSearch } = useSearchShopping()
+  const { search, setSearch } = useSearchShopping({ setError })
   const { products, getProducts } = useProducts({ search, filters })
 
   const handleSubmit = event => {
@@ -48,8 +47,8 @@ export default function ShoppingCart() {
   }
 
   return (
-    <div className='w-full h-full bg-slate-400 flex flex-col items-center'>
-      <section className='w-[80%] h-[150px] flex items-center justify-center'>
+    <div className='w-full h-screen bg-slate-400'>
+      <section className='w-[100%] h-[150px] flex items-center justify-center'>
         <form className='flex items-center' onSubmit={handleSubmit}>
           <div className='w-[400px]'>
             <label>
@@ -98,42 +97,10 @@ export default function ShoppingCart() {
           </div>
         </form>
       </section>
-      <section>
-        <ul className='h-full w-full grid products gap-7'>
-          {products.map(prod => (
-            <li
-              className='flex flex-col justify-between border p-3 border-black bg-slate-500 rounded-xl'
-              key={prod.id}
-            >
-              <div>
-                <span className='font-bold'>{prod.name}</span>
-                <p className='leading-5 mb-2 mt-1'>{prod.description}</p>
-              </div>
-              <div className=''>
-                <img
-                  className='rounded-xl'
-                  src={prod.imageUrl}
-                  alt={prod.name}
-                />
-                <div
-                  className='mt-2 flex justify-center gap-2 items-center
-                '
-                >
-                  <span className='font-bold'>${prod.price}</span>
-                  <button>
-                    <AddToCart />
-                  </button>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <section className=' bg-slate-400 flex items-center justify-center'>
+        <Products products={{ products }} />
       </section>
-      <br />
-      <footer className='mt-10 mb-3 w-[80%] flex flex-col items-center'>
-        <div className='border-t-black border-t border-t-[solid] h-[2px] p-0 mt-[20px] mr-auto ml-auto w-[inherit] mb-10'></div>
-        <p>Todos los derechos reservados © - 2024</p>
-      </footer>
+
       <Link to='/' className='absolute top-4 left-4 flex flex-col items-center'>
         <ReturnIcon />
         <span className='text-white'>Go back</span>
