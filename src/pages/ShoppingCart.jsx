@@ -13,6 +13,8 @@ export default function ShoppingCart() {
   const { search, setSearch } = useSearchShopping({ setError })
   const { products, getProducts } = useProducts({ search, filters })
 
+  console.log(products)
+
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -98,7 +100,7 @@ export default function ShoppingCart() {
         </form>
       </section>
       <section className=' bg-slate-400 flex items-center justify-center'>
-        <Products products={{ products }} />
+        <Products products={products} />
       </section>
 
       <Link to='/' className='absolute top-4 left-4 flex flex-col items-center'>
