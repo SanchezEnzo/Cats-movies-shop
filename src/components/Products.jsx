@@ -7,19 +7,18 @@ export function Products({ products }) {
 
   return (
     hasProducts && (
-      <ul className=' grid products gap-5 w-[70%]'>
+      <ul className=' grid products w-[65%] gap-5 my-10'>
         {products.map(prod => (
           <li
-            className='flex flex-col justify-between border p-3 border-black bg-slate-500 rounded-xl max-w-[350px]'
+            className='flex flex-col justify-between items-center text-center border p-3 border-black bg-slate-500 rounded-xl w-[250px] aspect-auto'
             key={prod.id}
           >
             <div>
               <span className='font-bold'>{prod.title}</span>
-              <p className='leading-5 mb-2 mt-1'>{prod.description}</p>
             </div>
             <div className=''>
               <img
-                className='rounded-xl'
+                className='rounded-xl '
                 src={prod.images[0]}
                 alt={prod.title}
               />

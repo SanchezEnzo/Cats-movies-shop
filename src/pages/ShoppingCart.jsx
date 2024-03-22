@@ -50,7 +50,7 @@ export default function ShoppingCart() {
 
   return (
     <div className='w-full h-screen bg-slate-400'>
-      <section className='w-[100%] h-[150px] flex items-center justify-center'>
+      <section className='w-[100%] h-[150px] flex items-center justify-center bg-slate-500'>
         <form className='flex items-center' onSubmit={handleSubmit}>
           <div className='w-[400px]'>
             <label>
