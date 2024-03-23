@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import AppCat from './pages/AppCat'
 import SearchMovies from './pages/SearchMovies'
 import ShoppingCart from './pages/ShoppingCart'
+import { FiltersProvider } from './contexts/filters'
 
 export default function App() {
   const routes = [
@@ -20,7 +21,11 @@ export default function App() {
     },
     {
       path: '/shoppingcart',
-      element: <ShoppingCart />
+      element: (
+        <FiltersProvider>
+          <ShoppingCart />
+        </FiltersProvider>
+      )
     }
   ]
 
