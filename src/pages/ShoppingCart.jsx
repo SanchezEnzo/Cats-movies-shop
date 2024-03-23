@@ -1,19 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { ReturnIcon } from '../components/Icons'
 import { Link } from 'react-router-dom'
 import { useSearchShopping } from '../hooks/useSearchShopping'
 import { useProducts } from '../hooks/useProducts'
 import { Products } from '../components/Products'
+import { useFilters } from '../hooks/useFilters'
 
 export default function ShoppingCart() {
-  const [filters, setFilters] = useState({ price: 0, category: 'all' })
   const [error, setError] = useState('')
   const priceRef = useRef()
   const categoryRef = useRef()
-  const { search, setSearch } = useSearchShopping({ setError })
-  const { products, getProducts } = useProducts({ search, filters })
-
-  console.log(products)
+  const { search, handleSearch } = useSearchShopping({ setError })
+  const { filters, handlePrice, handleCategory } = useFilters()
+  const { products, getProducts } = useProducts({ search })
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -29,25 +28,6 @@ export default function ShoppingCart() {
     getProducts()
   }
 
-  const handleChangeSearch = event => {
-    const newQuery = event.target.value
-    if (newQuery.startsWith(' ')) {
-      setError('El búscador no puede empezar con espacio')
-      return
-    }
-    if (newQuery.match(/^\d+$/)) {
-      setError('El búscador no puede empezar con un número')
-      return
-    }
-    setError('')
-    setSearch(newQuery)
-  }
-
-  const handleChangePrice = event => {
-    const newPrice = event.target.value
-    setFilters({ ...filters, price: newPrice })
-  }
-
   return (
     <div className='w-full h-screen bg-slate-400'>
       <section className='w-[100%] h-[150px] flex items-center justify-center bg-slate-500'>
@@ -59,7 +39,7 @@ export default function ShoppingCart() {
                 name='query'
                 placeholder='Smartphone, cámara, portátil'
                 className='pl-1 mr-2'
-                onChange={handleChangeSearch}
+                onChange={handleSearch}
               />
             </label>
             <button>Search</button>
@@ -80,7 +60,7 @@ export default function ShoppingCart() {
                 min={0}
                 max={2000}
                 id={priceRef}
-                onChange={handleChangePrice}
+                onChange={handlePrice}
                 className='mr-2'
               ></input>
               <span className='w-[10px]'>${filters.price}</span>
@@ -89,10 +69,14 @@ export default function ShoppingCart() {
               <label htmlFor={categoryRef} className=' mr-1'>
                 Categoria
               </label>
-              <select name='category' id={categoryRef}>
+              <select
+                name='category'
+                id={categoryRef}
+                onChange={handleCategory}
+              >
                 <option value='all'>All</option>
-                <option value='electrónica'>Electrónica</option>
-                <option value='hogar'>Hogar</option>
+                <option value='Electronics'>Electrónica</option>
+                <option value='Skate'>Hogar</option>
                 <option value='salud y belleza'>Salud y Belleza</option>
               </select>
             </div>

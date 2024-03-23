@@ -1,36 +1,29 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useFilters } from './useFilters'
 
-export function useProducts({ search, filters }) {
+const API_URL = 'https://api.escuelajs.co/api/v1/products'
+
+export function useProducts({ search }) {
   const [products, setProducts] = useState('')
+  const { filters, filterProducts } = useFilters()
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     if (search) {
-      const res = await fetch('https://api.escuelajs.co/api/v1/products')
+      const res = await fetch(API_URL)
       const json = await res.json()
 
+      if (!json) throw new Error('No se puedo acceder a la API')
       const productsBySearch = json?.filter(prod =>
         prod.title.toLowerCase().includes(search.toLowerCase())
       )
 
-      // const mappedProducts = productsBySearch?.map(prod => {
-      //   const newProducts = []
+      const filteredProducts = filterProducts(productsBySearch)
 
-      //   prod.description.length > 20
-      //     ? [[...newProducts], prod]
-      //     : [
-      //         [...newProducts],
-      //         {
-      //           ...prod,
-      //           description:
-      //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-      //         }
-      //       ]
-      //   return newProducts
-      // })
-
-      setProducts(productsBySearch)
-      console.log(productsBySearch)
+      console.log(filteredProducts)
+      if (filteredProducts.length == 0) setProducts('')
+      setProducts(filteredProducts)
     }
-  }
+  }, [search, filters.price, filters.category])
+
   return { products, getProducts }
 }
