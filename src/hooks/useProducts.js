@@ -1,27 +1,24 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useFilters } from './useFilters'
-
-const API_URL = 'https://api.escuelajs.co/api/v1/products'
+import { searchProducts } from '../service/products'
 
 export function useProducts({ search }) {
   const [products, setProducts] = useState('')
-  const { filters, filterProducts } = useFilters()
+  const { filterProducts, filters } = useFilters()
+  const isSearchChange = useRef(search)
 
   const getProducts = useCallback(async () => {
+    if (isSearchChange.current === '') isSearchChange.current = search === ''
     if (search) {
-      const res = await fetch(API_URL)
-      const json = await res.json()
-
-      if (!json) throw new Error('No se puedo acceder a la API')
-      const productsBySearch = json?.filter(prod =>
-        prod.title.toLowerCase().includes(search.toLowerCase())
-      )
-
-      const filteredProducts = filterProducts(productsBySearch)
-
-      console.log(filteredProducts)
-      if (filteredProducts.length == 0) setProducts('')
-      setProducts(filteredProducts)
+      try {
+        const mappedMovies = await searchProducts(search)
+        const filteredProducts = filterProducts(mappedMovies)
+        if (filteredProducts.length == 0) setProducts('')
+        setProducts(filteredProducts)
+      } catch {
+        console.error('Error searching products')
+        return null
+      }
     }
   }, [search, filters.price, filters.category])
 

@@ -3,7 +3,6 @@ import { AddToCart } from './Icons'
 export function Products({ products }) {
   const hasProducts = products?.length > 0
   console.log(products)
-  console.log(hasProducts)
 
   return (
     hasProducts && (

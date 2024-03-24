@@ -11,8 +11,20 @@ export default function ShoppingCart() {
   const priceRef = useRef()
   const categoryRef = useRef()
   const { search, handleSearch } = useSearchShopping({ setError })
-  const { filters, handlePrice, handleCategory } = useFilters()
+  const { filters, setFilters } = useFilters()
   const { products, getProducts } = useProducts({ search })
+
+  const handleChangePrice = event => {
+    const newPrice = event.target.value
+    setFilters(prevFilters => ({ ...prevFilters, price: newPrice }))
+    getProducts()
+  }
+
+  const handleChangeCategory = event => {
+    const newCategory = event.target.value
+    setFilters(prevFilters => ({ ...prevFilters, category: newCategory }))
+    getProducts()
+  }
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -60,7 +72,7 @@ export default function ShoppingCart() {
                 min={0}
                 max={2000}
                 id={priceRef}
-                onChange={handlePrice}
+                onChange={handleChangePrice}
                 className='mr-2'
               ></input>
               <span className='w-[10px]'>${filters.price}</span>
@@ -72,12 +84,12 @@ export default function ShoppingCart() {
               <select
                 name='category'
                 id={categoryRef}
-                onChange={handleCategory}
+                onChange={handleChangeCategory}
               >
                 <option value='all'>All</option>
+                <option value='Miscellaneous'>Perfumes</option>
+                <option value='Clothes'>Ropa</option>
                 <option value='Electronics'>Electrónica</option>
-                <option value='Skate'>Hogar</option>
-                <option value='salud y belleza'>Salud y Belleza</option>
               </select>
             </div>
           </div>
